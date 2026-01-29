@@ -14,8 +14,10 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'],
+        sans: ['VT323', 'monospace'],
+        mono: ['VT323', 'monospace'],
+        pixel: ['Press Start 2P', 'cursive'],
+        retro: ['VT323', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",

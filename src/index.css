@@ -2,54 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap');
 
 @layer base {
   :root {
-    --background: 220 20% 10%;
-    --foreground: 210 20% 95%;
+    --background: 20 10% 12%;
+    --foreground: 40 20% 90%;
 
-    --card: 220 18% 13%;
-    --card-foreground: 210 20% 95%;
+    --card: 20 12% 15%;
+    --card-foreground: 40 20% 90%;
 
-    --popover: 220 18% 13%;
-    --popover-foreground: 210 20% 95%;
+    --popover: 20 12% 15%;
+    --popover-foreground: 40 20% 90%;
 
-    --primary: 174 70% 45%;
-    --primary-foreground: 220 20% 10%;
+    --primary: 120 70% 45%;
+    --primary-foreground: 20 10% 10%;
 
-    --secondary: 220 15% 18%;
-    --secondary-foreground: 210 20% 90%;
+    --secondary: 20 10% 20%;
+    --secondary-foreground: 40 20% 85%;
 
-    --muted: 220 15% 20%;
-    --muted-foreground: 215 15% 55%;
+    --muted: 20 10% 22%;
+    --muted-foreground: 30 10% 55%;
 
-    --accent: 174 70% 45%;
-    --accent-foreground: 220 20% 10%;
+    --accent: 120 70% 45%;
+    --accent-foreground: 20 10% 10%;
 
-    --destructive: 0 70% 55%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 40 20% 95%;
 
-    --border: 220 15% 22%;
-    --input: 220 15% 18%;
-    --ring: 174 70% 45%;
+    --border: 20 10% 25%;
+    --input: 20 10% 18%;
+    --ring: 120 70% 45%;
 
-    --radius: 0.75rem;
+    --radius: 0px;
 
-    /* Custom tokens */
-    --key-color: 174 60% 60%;
-    --string-color: 35 90% 65%;
-    --number-color: 200 80% 65%;
-    --boolean-true: 150 60% 50%;
-    --boolean-false: 0 60% 55%;
-    --array-color: 280 60% 65%;
-    --object-color: 220 60% 65%;
+    /* Minecraft theme tokens */
+    --mc-green: 120 70% 45%;
+    --mc-green-dark: 120 70% 35%;
+    --mc-stone: 30 8% 35%;
+    --mc-stone-dark: 25 10% 20%;
+    --mc-dirt: 25 40% 25%;
+    --mc-gold: 45 90% 50%;
+    --mc-red: 0 70% 50%;
 
-    --font-mono: 'JetBrains Mono', monospace;
-    --font-sans: 'Inter', sans-serif;
-
-    --glow-primary: 0 0 20px hsl(174 70% 45% / 0.3);
-    --glow-accent: 0 0 30px hsl(174 70% 45% / 0.2);
+    --font-pixel: 'Press Start 2P', cursive;
+    --font-retro: 'VT323', monospace;
   }
 }
 
@@ -59,85 +56,171 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-    font-family: var(--font-sans);
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-retro);
+    image-rendering: pixelated;
   }
 
-  .font-mono {
-    font-family: var(--font-mono);
+  .font-pixel {
+    font-family: var(--font-pixel);
+  }
+
+  .font-retro {
+    font-family: var(--font-retro);
   }
 }
 
 @layer components {
-  .json-key {
-    color: hsl(var(--key-color));
-    font-family: var(--font-mono);
+  .mc-button {
+    @apply px-6 py-3 text-lg font-bold transition-all duration-100;
+    font-family: var(--font-pixel);
+    background: linear-gradient(180deg, hsl(var(--mc-stone)) 0%, hsl(var(--mc-stone-dark)) 100%);
+    border: 3px solid;
+    border-color: hsl(30 10% 50%) hsl(25 10% 15%) hsl(25 10% 15%) hsl(30 10% 50%);
+    box-shadow: 
+      inset 2px 2px 0 hsl(30 10% 45%),
+      inset -2px -2px 0 hsl(25 10% 18%);
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
   }
 
-  .json-string {
-    color: hsl(var(--string-color));
+  .mc-button:hover {
+    filter: brightness(1.2);
   }
 
-  .json-number {
-    color: hsl(var(--number-color));
+  .mc-button:active {
+    border-color: hsl(25 10% 15%) hsl(30 10% 50%) hsl(30 10% 50%) hsl(25 10% 15%);
+    box-shadow: 
+      inset -2px -2px 0 hsl(30 10% 45%),
+      inset 2px 2px 0 hsl(25 10% 18%);
   }
 
-  .json-boolean-true {
-    color: hsl(var(--boolean-true));
+  .mc-button-primary {
+    @apply mc-button text-primary-foreground;
+    background: linear-gradient(180deg, hsl(var(--mc-green)) 0%, hsl(var(--mc-green-dark)) 100%);
+    border-color: hsl(120 60% 60%) hsl(120 70% 25%) hsl(120 70% 25%) hsl(120 60% 60%);
+    box-shadow: 
+      inset 2px 2px 0 hsl(120 60% 55%),
+      inset -2px -2px 0 hsl(120 70% 28%);
   }
 
-  .json-boolean-false {
-    color: hsl(var(--boolean-false));
+  .mc-card {
+    @apply p-4;
+    background: hsl(var(--card));
+    border: 3px solid;
+    border-color: hsl(20 10% 30%) hsl(20 10% 10%) hsl(20 10% 10%) hsl(20 10% 30%);
+    box-shadow: 
+      inset 2px 2px 0 hsl(20 10% 28%),
+      inset -2px -2px 0 hsl(20 10% 12%);
   }
 
-  .json-array-badge {
-    background: hsl(var(--array-color) / 0.15);
-    color: hsl(var(--array-color));
+  .mc-panel {
+    background: hsl(var(--background) / 0.95);
+    border: 4px solid hsl(var(--border));
+    box-shadow: 
+      0 0 0 2px hsl(20 10% 8%),
+      inset 0 0 0 2px hsl(20 10% 8%);
   }
 
-  .json-object-badge {
-    background: hsl(var(--object-color) / 0.15);
-    color: hsl(var(--object-color));
+  .mc-input {
+    @apply px-3 py-2 text-lg;
+    font-family: var(--font-retro);
+    background: hsl(20 10% 8%);
+    border: 2px solid;
+    border-color: hsl(20 10% 5%) hsl(20 10% 25%) hsl(20 10% 25%) hsl(20 10% 5%);
   }
 
-  .upload-zone {
-    @apply border-2 border-dashed border-border rounded-xl p-12 transition-all duration-300;
-    background: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--secondary)) 100%);
+  .mc-input:focus {
+    outline: none;
+    border-color: hsl(var(--mc-green));
   }
 
-  .upload-zone:hover,
-  .upload-zone.dragging {
-    @apply border-primary;
-    box-shadow: var(--glow-primary);
+  .mc-toggle {
+    @apply relative w-12 h-6 cursor-pointer;
+    background: hsl(var(--mc-red));
+    border: 2px solid;
+    border-color: hsl(0 60% 35%) hsl(0 70% 60%) hsl(0 70% 60%) hsl(0 60% 35%);
   }
 
-  .editor-card {
-    @apply bg-card border border-border rounded-lg overflow-hidden;
-    transition: all 0.2s ease;
+  .mc-toggle.active {
+    background: hsl(var(--mc-green));
+    border-color: hsl(120 60% 30%) hsl(120 60% 55%) hsl(120 60% 55%) hsl(120 60% 30%);
   }
 
-  .editor-card:hover {
-    @apply border-primary/30;
+  .mc-toggle::after {
+    content: '';
+    @apply absolute top-0 left-0 w-5 h-5 transition-all duration-100;
+    background: linear-gradient(180deg, hsl(40 20% 80%) 0%, hsl(40 15% 60%) 100%);
+    border: 2px solid;
+    border-color: hsl(40 20% 90%) hsl(40 15% 40%) hsl(40 15% 40%) hsl(40 20% 90%);
   }
 
-  .glow-button {
-    box-shadow: var(--glow-primary);
+  .mc-toggle.active::after {
+    left: calc(100% - 20px);
   }
 
-  .glow-button:hover {
-    box-shadow: var(--glow-accent);
+  .section-header {
+    @apply text-xs uppercase tracking-wider px-3 py-2 mb-2;
+    font-family: var(--font-pixel);
+    color: hsl(var(--mc-green));
+    background: linear-gradient(90deg, hsl(var(--mc-green) / 0.15) 0%, transparent 100%);
+    border-left: 4px solid hsl(var(--mc-green));
+  }
+
+  .setting-row {
+    @apply flex items-center justify-between py-3 px-4 border-b border-border/50;
+    transition: background 0.1s;
+  }
+
+  .setting-row:hover {
+    background: hsl(var(--muted) / 0.5);
+  }
+
+  .setting-label {
+    @apply text-lg;
+    font-family: var(--font-retro);
+    color: hsl(var(--foreground));
+  }
+
+  .setting-sublabel {
+    @apply text-lg pl-6;
+    font-family: var(--font-retro);
+    color: hsl(var(--muted-foreground));
+  }
+
+  .upload-zone-mc {
+    @apply p-12 cursor-pointer transition-all duration-200;
+    background: repeating-linear-gradient(
+      45deg,
+      hsl(var(--card)),
+      hsl(var(--card)) 10px,
+      hsl(var(--muted)) 10px,
+      hsl(var(--muted)) 20px
+    );
+    border: 4px dashed hsl(var(--border));
+  }
+
+  .upload-zone-mc:hover,
+  .upload-zone-mc.dragging {
+    border-color: hsl(var(--mc-green));
+    background: repeating-linear-gradient(
+      45deg,
+      hsl(var(--card)),
+      hsl(var(--card)) 10px,
+      hsl(var(--mc-green) / 0.1) 10px,
+      hsl(var(--mc-green) / 0.1) 20px
+    );
   }
 }
 
 @layer utilities {
   .animate-fade-in {
-    animation: fadeIn 0.3s ease-out;
+    animation: fadeIn 0.2s ease-out;
   }
 
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(5px);
     }
     to {
       opacity: 1;
@@ -145,16 +228,7 @@
     }
   }
 
-  .animate-pulse-glow {
-    animation: pulseGlow 2s ease-in-out infinite;
-  }
-
-  @keyframes pulseGlow {
-    0%, 100% {
-      box-shadow: 0 0 20px hsl(174 70% 45% / 0.2);
-    }
-    50% {
-      box-shadow: 0 0 30px hsl(174 70% 45% / 0.4);
-    }
+  .text-shadow-mc {
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
   }
 }
