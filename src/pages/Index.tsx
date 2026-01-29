@@ -1,7 +1,7 @@
-import { JsonVisualizer } from '@/components/JsonVisualizer';
+import { BBConfigEditor } from '@/components/BBConfigEditor';
 
 const Index = () => {
-  return <JsonVisualizer />;
+  return <BBConfigEditor />;
 };
 
 export default Index;
