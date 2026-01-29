@@ -111,6 +111,7 @@ export const JsonVisualizer = () => {
               <JsonEditor
                 data={jsonData}
                 onChange={setJsonData}
+                isRoot={true}
               />
             </div>
           </div>
