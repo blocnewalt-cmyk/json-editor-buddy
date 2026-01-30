@@ -139,72 +139,99 @@ export const BBConfigEditor = () => {
 
   if (!data) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-8">
-        {/* Logo/Title */}
-        <div className="mb-8 text-center">
-          <h1 className="font-pixel text-2xl md:text-3xl text-primary text-shadow-mc mb-4">
-            ⌠BETTER BEDROCK⌡
-          </h1>
-          <h2 className="font-pixel text-sm md:text-base text-foreground text-shadow-mc">
-            Config Editor
-          </h2>
-        </div>
+      <div className="min-h-screen flex flex-col">
+        {/* Header */}
+        <header className="bg-[#1a1a1a] border-b-2 border-[#333] px-6 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-[#2d2d2d] border-2 border-[#444] flex items-center justify-center">
+              <span className="font-pixel text-[8px] text-primary">BB</span>
+            </div>
+            <span className="font-pixel text-sm text-foreground tracking-wider">BETTER BEDROCK</span>
+          </div>
+          <nav className="flex items-center gap-8">
+            <span className="font-pixel text-xs text-foreground hover:text-primary cursor-pointer transition-colors">Home</span>
+            <span className="font-pixel text-xs text-foreground hover:text-primary cursor-pointer transition-colors">Downloads</span>
+            <span className="font-pixel text-xs text-foreground hover:text-primary cursor-pointer transition-colors">Information</span>
+            <span className="font-pixel text-xs text-foreground hover:text-primary cursor-pointer transition-colors">Login</span>
+          </nav>
+        </header>
 
-        {/* Upload Zone */}
-        <div
-          className={`upload-zone-mc max-w-xl w-full ${isDragging ? 'dragging' : ''}`}
-          onDrop={handleDrop}
-          onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
-          onDragLeave={() => setIsDragging(false)}
-          onClick={() => document.getElementById('file-input')?.click()}
+        {/* Hero Section with Background */}
+        <div 
+          className="flex-1 flex flex-col items-center justify-center relative bg-cover bg-center bg-no-repeat"
+          style={{ 
+            backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('/minecraft-forest-bg.jpg')`,
+            backgroundColor: '#4a6a7a'
+          }}
         >
-          <input
-            id="file-input"
-            type="file"
-            accept=".json"
-            onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
-            className="hidden"
-          />
-          
-          <div className="flex flex-col items-center gap-6">
-            <div className="w-20 h-20 flex items-center justify-center">
-              {isDragging ? (
-                <Upload className="w-16 h-16 text-primary" />
-              ) : (
-                <FileJson className="w-16 h-16 text-primary" />
-              )}
-            </div>
+          {/* Main Content */}
+          <div className="text-center z-10 px-4">
+            {/* Title with brackets */}
+            <h1 className="font-pixel text-3xl md:text-5xl text-foreground mb-6 tracking-wide">
+              <span className="text-primary">⌠</span>BETTER BEDROCK<span className="text-primary">⌡</span>
+            </h1>
             
-            <div className="text-center">
-              <p className="font-pixel text-xs text-foreground text-shadow-mc mb-2">
-                {isDragging ? 'DROP FILE HERE' : 'UPLOAD CONFIG'}
-              </p>
-              <p className="font-retro text-lg text-muted-foreground">
-                Drop global_variables.json or click to browse
-              </p>
+            {/* Subtitle */}
+            <p className="font-pixel text-xs md:text-sm text-foreground/90 max-w-2xl mx-auto mb-2 leading-relaxed">
+              Config Editor - Edit your global_variables.json
+            </p>
+            <p className="font-pixel text-[10px] md:text-xs text-foreground/70 max-w-xl mx-auto mb-10">
+              with an easy-to-use visual interface
+            </p>
+
+            {/* Buttons */}
+            <div 
+              className="flex justify-center cursor-pointer"
+              onClick={() => document.getElementById('file-input')?.click()}
+              onDrop={handleDrop}
+              onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+              onDragLeave={() => setIsDragging(false)}
+            >
+              <input
+                id="file-input"
+                type="file"
+                accept=".json"
+                onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
+                className="hidden"
+              />
+              <button className={`font-pixel text-sm px-12 py-4 transition-all ${isDragging ? 'brightness-125' : ''}`}
+                style={{
+                  background: 'linear-gradient(180deg, #5a8f3e 0%, #3d6b29 100%)',
+                  border: '3px solid',
+                  borderColor: '#7ab356 #2d4f1a #2d4f1a #7ab356',
+                  color: '#fff',
+                  textShadow: '2px 2px 0 rgba(0,0,0,0.5)'
+                }}
+              >
+                {isDragging ? 'Drop File Here' : 'Upload Config'}
+              </button>
+              <button className="font-pixel text-sm px-12 py-4 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(180deg, #a0a0a0 0%, #707070 100%)',
+                  border: '3px solid',
+                  borderColor: '#c0c0c0 #505050 #505050 #c0c0c0',
+                  color: '#333',
+                  textShadow: '1px 1px 0 rgba(255,255,255,0.3)'
+                }}
+              >
+                Drop JSON Here
+              </button>
             </div>
           </div>
+
+          {error && (
+            <div className="absolute bottom-20 left-1/2 -translate-x-1/2 mc-card max-w-xl w-full mx-4">
+              <p className="text-destructive font-retro text-lg text-center">{error}</p>
+            </div>
+          )}
         </div>
 
-        {error && (
-          <div className="mc-card mt-6 max-w-xl w-full">
-            <p className="text-destructive font-retro text-lg text-center">{error}</p>
-          </div>
-        )}
-
-        {/* Features */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12 max-w-3xl w-full">
-          {[
-            { icon: '⚡', title: 'TOGGLE MODS', desc: 'Enable/disable with one click' },
-            { icon: '🔧', title: 'EDIT VALUES', desc: 'Adjust offsets & opacity' },
-            { icon: '💾', title: 'EXPORT', desc: 'Download your config' },
-          ].map((f) => (
-            <div key={f.title} className="mc-card text-center">
-              <span className="text-3xl mb-3 block">{f.icon}</span>
-              <p className="font-pixel text-[10px] text-primary mb-2">{f.title}</p>
-              <p className="font-retro text-base text-muted-foreground">{f.desc}</p>
-            </div>
-          ))}
+        {/* Footer Section */}
+        <div className="bg-[#1a1a1a]/95 py-8 text-center border-t-2 border-[#333]">
+          <h2 className="font-pixel text-lg text-foreground mb-3">EDIT YOUR CONFIG</h2>
+          <p className="font-pixel text-xs text-foreground/70 max-w-xl mx-auto px-4">
+            Toggle mods on/off, adjust values, and export your updated configuration file
+          </p>
         </div>
       </div>
     );
