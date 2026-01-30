@@ -139,49 +139,40 @@ export const BBConfigEditor = () => {
 
   if (!data) {
     return (
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen bg-background flex flex-col">
         {/* Header */}
-        <header className="bg-[#1a1a1a] border-b-2 border-[#333] px-6 py-3 flex items-center justify-between">
+        <header className="bg-card/80 backdrop-blur-sm border-b border-border px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#2d2d2d] border-2 border-[#444] flex items-center justify-center">
-              <span className="font-pixel text-[8px] text-primary">BB</span>
+            <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center border border-primary/20">
+              <span className="font-bold text-primary text-lg">BB</span>
             </div>
-            <span className="font-pixel text-sm text-foreground tracking-wider">BETTER BEDROCK</span>
+            <span className="font-medium text-foreground text-lg">Config Editor</span>
           </div>
-          <nav className="flex items-center gap-8">
-            <span className="font-pixel text-xs text-foreground hover:text-primary cursor-pointer transition-colors">Home</span>
-            <span className="font-pixel text-xs text-foreground hover:text-primary cursor-pointer transition-colors">Downloads</span>
-            <span className="font-pixel text-xs text-foreground hover:text-primary cursor-pointer transition-colors">Information</span>
-            <span className="font-pixel text-xs text-foreground hover:text-primary cursor-pointer transition-colors">Login</span>
-          </nav>
         </header>
 
-        {/* Hero Section with Background */}
-        <div 
-          className="flex-1 flex flex-col items-center justify-center relative bg-cover bg-center bg-no-repeat"
-          style={{ 
-            backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('/minecraft-forest-bg.jpg')`,
-            backgroundColor: '#4a6a7a'
-          }}
-        >
-          {/* Main Content */}
-          <div className="text-center z-10 px-4">
-            {/* Title with brackets */}
-            <h1 className="font-pixel text-3xl md:text-5xl text-foreground mb-6 tracking-wide">
-              <span className="text-primary">⌠</span>BETTER BEDROCK<span className="text-primary">⌡</span>
+        {/* Main Content */}
+        <div className="flex-1 flex flex-col items-center justify-center p-8">
+          <div className="max-w-md w-full text-center">
+            {/* Icon */}
+            <div className="w-20 h-20 mx-auto mb-6 bg-primary/10 rounded-2xl flex items-center justify-center border border-primary/20">
+              <FileJson className="w-10 h-10 text-primary" />
+            </div>
+
+            {/* Title */}
+            <h1 className="text-2xl font-bold text-foreground mb-2">
+              Better Bedrock Config
             </h1>
-            
-            {/* Subtitle */}
-            <p className="font-pixel text-xs md:text-sm text-foreground/90 max-w-2xl mx-auto mb-2 leading-relaxed">
-              Config Editor - Edit your global_variables.json
-            </p>
-            <p className="font-pixel text-[10px] md:text-xs text-foreground/70 max-w-xl mx-auto mb-10">
-              with an easy-to-use visual interface
+            <p className="text-muted-foreground mb-8">
+              Upload your global_variables.json to get started
             </p>
 
-            {/* Buttons */}
-            <div 
-              className="flex justify-center cursor-pointer"
+            {/* Upload Zone */}
+            <div
+              className={`relative border-2 border-dashed rounded-xl p-8 transition-all cursor-pointer ${
+                isDragging 
+                  ? 'border-primary bg-primary/5' 
+                  : 'border-border hover:border-primary/50 hover:bg-card/50'
+              }`}
               onClick={() => document.getElementById('file-input')?.click()}
               onDrop={handleDrop}
               onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
@@ -194,44 +185,37 @@ export const BBConfigEditor = () => {
                 onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
                 className="hidden"
               />
-              <button className={`font-pixel text-sm px-12 py-4 transition-all ${isDragging ? 'brightness-125' : ''}`}
-                style={{
-                  background: 'linear-gradient(180deg, #5a8f3e 0%, #3d6b29 100%)',
-                  border: '3px solid',
-                  borderColor: '#7ab356 #2d4f1a #2d4f1a #7ab356',
-                  color: '#fff',
-                  textShadow: '2px 2px 0 rgba(0,0,0,0.5)'
-                }}
-              >
-                {isDragging ? 'Drop File Here' : 'Upload Config'}
-              </button>
-              <button className="font-pixel text-sm px-12 py-4 pointer-events-none"
-                style={{
-                  background: 'linear-gradient(180deg, #a0a0a0 0%, #707070 100%)',
-                  border: '3px solid',
-                  borderColor: '#c0c0c0 #505050 #505050 #c0c0c0',
-                  color: '#333',
-                  textShadow: '1px 1px 0 rgba(255,255,255,0.3)'
-                }}
-              >
-                Drop JSON Here
-              </button>
+              
+              <Upload className={`w-8 h-8 mx-auto mb-4 transition-colors ${isDragging ? 'text-primary' : 'text-muted-foreground'}`} />
+              
+              <p className="font-medium text-foreground mb-1">
+                {isDragging ? 'Drop your file here' : 'Click to upload'}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                or drag and drop your JSON file
+              </p>
+            </div>
+
+            {error && (
+              <div className="mt-4 p-4 bg-destructive/10 border border-destructive/20 rounded-lg">
+                <p className="text-destructive text-sm">{error}</p>
+              </div>
+            )}
+
+            {/* Features */}
+            <div className="grid grid-cols-3 gap-4 mt-8">
+              {[
+                { icon: '⚡', label: 'Toggle' },
+                { icon: '🔧', label: 'Edit' },
+                { icon: '💾', label: 'Export' },
+              ].map((f) => (
+                <div key={f.label} className="text-center p-3 rounded-lg bg-card/50 border border-border/50">
+                  <span className="text-xl block mb-1">{f.icon}</span>
+                  <span className="text-xs text-muted-foreground">{f.label}</span>
+                </div>
+              ))}
             </div>
           </div>
-
-          {error && (
-            <div className="absolute bottom-20 left-1/2 -translate-x-1/2 mc-card max-w-xl w-full mx-4">
-              <p className="text-destructive font-retro text-lg text-center">{error}</p>
-            </div>
-          )}
-        </div>
-
-        {/* Footer Section */}
-        <div className="bg-[#1a1a1a]/95 py-8 text-center border-t-2 border-[#333]">
-          <h2 className="font-pixel text-lg text-foreground mb-3">EDIT YOUR CONFIG</h2>
-          <p className="font-pixel text-xs text-foreground/70 max-w-xl mx-auto px-4">
-            Toggle mods on/off, adjust values, and export your updated configuration file
-          </p>
         </div>
       </div>
     );
