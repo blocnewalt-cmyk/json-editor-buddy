@@ -5,6 +5,8 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  // Use repository name as base path for GitHub Pages, or "/" for other deployments
+  base: process.env.GITHUB_ACTIONS ? "/bb-config-editor/" : "/",
   server: {
     host: "::",
     port: 8080,
