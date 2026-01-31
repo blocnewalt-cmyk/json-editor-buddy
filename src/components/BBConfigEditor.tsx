@@ -91,7 +91,7 @@ export const BBConfigEditor = () => {
       return (
         <button
           onClick={() => updateValue(key, !value)}
-          className={`discord-toggle ${value ? 'active' : ''}`}
+          className={`discord-toggle flex-shrink-0 ${value ? 'active' : ''}`}
           aria-label={value ? 'Enabled' : 'Disabled'}
         />
       );
@@ -103,7 +103,7 @@ export const BBConfigEditor = () => {
           type="number"
           value={value}
           onChange={(e) => updateValue(key, parseFloat(e.target.value) || 0)}
-          className="discord-input w-20 text-center"
+          className="discord-input w-20 text-center flex-shrink-0"
         />
       );
     }
@@ -114,14 +114,14 @@ export const BBConfigEditor = () => {
           type="text"
           value={value}
           onChange={(e) => updateValue(key, e.target.value)}
-          className="discord-input w-40"
+          className="discord-input w-32 sm:w-40 flex-shrink-0"
         />
       );
     }
 
     if (Array.isArray(value)) {
       return (
-        <span className="text-muted-foreground text-xs bg-muted px-2 py-1 rounded">
+        <span className="text-muted-foreground text-xs bg-muted px-2 py-1 rounded flex-shrink-0">
           Array [{value.length}]
         </span>
       );
@@ -141,32 +141,32 @@ export const BBConfigEditor = () => {
     return (
       <div className="min-h-screen bg-background flex flex-col">
         {/* Header */}
-        <header className="bg-card border-b border-border px-6 py-3 flex items-center gap-3">
-          <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+        <header className="bg-card border-b border-border px-4 sm:px-6 py-3 flex items-center gap-3">
+          <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
             <FileJson className="w-4 h-4 text-primary-foreground" />
           </div>
-          <span className="font-semibold text-foreground">BB Config Editor</span>
+          <span className="font-semibold text-foreground text-sm sm:text-base truncate">BB Config Editor</span>
         </header>
 
         {/* Main Content */}
-        <div className="flex-1 flex flex-col items-center justify-center p-8">
+        <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8">
           <div className="max-w-lg w-full">
             {/* Icon */}
-            <div className="w-16 h-16 mx-auto mb-6 bg-primary rounded-2xl flex items-center justify-center">
-              <FileJson className="w-8 h-8 text-primary-foreground" />
+            <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-4 sm:mb-6 bg-primary rounded-2xl flex items-center justify-center">
+              <FileJson className="w-7 h-7 sm:w-8 sm:h-8 text-primary-foreground" />
             </div>
 
             {/* Title */}
-            <h1 className="text-2xl font-bold text-foreground text-center mb-2">
+            <h1 className="text-xl sm:text-2xl font-bold text-foreground text-center mb-2">
               Better Bedrock Config
             </h1>
-            <p className="text-muted-foreground text-center mb-8">
+            <p className="text-sm sm:text-base text-muted-foreground text-center mb-6 sm:mb-8 px-2">
               Upload your global_variables.json to get started
             </p>
 
             {/* Upload Zone */}
             <div
-              className={`relative border-2 border-dashed rounded-lg p-10 transition-all cursor-pointer ${
+              className={`relative border-2 border-dashed rounded-lg p-6 sm:p-10 transition-all cursor-pointer ${
                 isDragging 
                   ? 'border-primary bg-primary/10' 
                   : 'border-border hover:border-primary/50 hover:bg-card/50'
@@ -184,36 +184,21 @@ export const BBConfigEditor = () => {
                 className="hidden"
               />
               
-              <Upload className={`w-10 h-10 mx-auto mb-4 transition-colors ${isDragging ? 'text-primary' : 'text-muted-foreground'}`} />
+              <Upload className={`w-8 h-8 sm:w-10 sm:h-10 mx-auto mb-3 sm:mb-4 transition-colors ${isDragging ? 'text-primary' : 'text-muted-foreground'}`} />
               
-              <p className="font-medium text-foreground text-center mb-1">
+              <p className="font-medium text-foreground text-center text-sm sm:text-base mb-1">
                 {isDragging ? 'Drop your file here' : 'Click to upload'}
               </p>
-              <p className="text-sm text-muted-foreground text-center">
+              <p className="text-xs sm:text-sm text-muted-foreground text-center">
                 or drag and drop your JSON file
               </p>
             </div>
 
             {error && (
-              <div className="mt-4 p-4 bg-destructive/10 border border-destructive/30 rounded-lg">
-                <p className="text-destructive text-sm">{error}</p>
+              <div className="mt-4 p-3 sm:p-4 bg-destructive/10 border border-destructive/30 rounded-lg">
+                <p className="text-destructive text-xs sm:text-sm">{error}</p>
               </div>
             )}
-
-            {/* Features */}
-            <div className="grid grid-cols-3 gap-3 mt-8">
-              {[
-                { icon: '⚡', label: 'Toggle', desc: 'Quick switches' },
-                { icon: '🔧', label: 'Edit', desc: 'Modify values' },
-                { icon: '💾', label: 'Export', desc: 'Save changes' },
-              ].map((f) => (
-                <div key={f.label} className="text-center p-4 rounded-lg bg-card border border-border">
-                  <span className="text-2xl block mb-2">{f.icon}</span>
-                  <span className="text-sm font-medium text-foreground block">{f.label}</span>
-                  <span className="text-xs text-muted-foreground">{f.desc}</span>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>
@@ -226,27 +211,27 @@ export const BBConfigEditor = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="sticky top-0 z-10 bg-card border-b border-border">
-        <div className="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-              <FileJson className="w-4 h-4 text-primary-foreground" />
+        <div className="max-w-5xl mx-auto px-3 sm:px-6 py-3 flex items-center justify-between gap-2 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+              <FileJson className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary-foreground" />
             </div>
-            <div className="flex flex-col">
-              <span className="font-semibold text-foreground text-sm">BB Config</span>
-              <span className="text-xs text-muted-foreground">{fileName}</span>
+            <div className="flex flex-col min-w-0">
+              <span className="font-semibold text-foreground text-xs sm:text-sm truncate">BB Config</span>
+              <span className="text-[10px] sm:text-xs text-muted-foreground truncate">{fileName}</span>
             </div>
           </div>
           
-          <div className="flex items-center gap-3">
-            {/* Search */}
-            <div className="relative">
+          <div className="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
+            {/* Search - hidden on very small screens */}
+            <div className="relative hidden sm:block">
               <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
               <input
                 type="text"
-                placeholder="Search settings..."
+                placeholder="Search..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="discord-input pl-9 pr-8 w-56"
+                className="discord-input pl-9 pr-8 w-40 lg:w-56"
               />
               {searchQuery && (
                 <button 
@@ -258,23 +243,45 @@ export const BBConfigEditor = () => {
               )}
             </div>
 
-            <button onClick={handleNewFile} className="discord-btn-outline">
+            <button onClick={handleNewFile} className="discord-btn-outline text-xs sm:text-sm px-2 sm:px-4 py-1.5 sm:py-2">
               New
             </button>
-            <button onClick={handleReset} className="discord-btn-secondary p-2">
-              <RotateCcw className="w-4 h-4" />
+            <button onClick={handleReset} className="discord-btn-secondary p-1.5 sm:p-2">
+              <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </button>
-            <button onClick={handleExport} className="discord-btn flex items-center gap-2">
-              <Download className="w-4 h-4" />
-              Export
+            <button onClick={handleExport} className="discord-btn flex items-center gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-4 py-1.5 sm:py-2">
+              <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span className="hidden xs:inline">Export</span>
             </button>
+          </div>
+        </div>
+        
+        {/* Mobile search bar */}
+        <div className="sm:hidden px-3 pb-3">
+          <div className="relative">
+            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder="Search settings..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="discord-input pl-9 pr-8 w-full"
+            />
+            {searchQuery && (
+              <button 
+                onClick={() => setSearchQuery('')}
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="max-w-5xl mx-auto px-6 py-6">
-        <div className="space-y-3">
+      <main className="max-w-5xl mx-auto px-3 sm:px-6 py-4 sm:py-6">
+        <div className="space-y-2 sm:space-y-3">
           {Array.from(sections.entries()).map(([sectionName, keys]) => {
             const filteredKeys = filterSettings(keys);
             if (filteredKeys.length === 0) return null;
@@ -282,28 +289,28 @@ export const BBConfigEditor = () => {
             const isExpanded = expandedSections.has(sectionName);
             
             return (
-              <div key={sectionName} className="discord-card animate-fade-in">
+              <div key={sectionName} className="discord-card animate-fade-in p-3 sm:p-4">
                 <button
                   onClick={() => toggleSection(sectionName)}
                   className="w-full flex items-center gap-2 text-left group"
                 >
-                  <div className="w-5 h-5 flex items-center justify-center text-muted-foreground group-hover:text-foreground transition-colors">
+                  <div className="w-5 h-5 flex items-center justify-center text-muted-foreground group-hover:text-foreground transition-colors flex-shrink-0">
                     {isExpanded ? (
                       <ChevronDown className="w-4 h-4" />
                     ) : (
                       <ChevronRight className="w-4 h-4" />
                     )}
                   </div>
-                  <span className="flex-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground group-hover:text-foreground transition-colors">
+                  <span className="flex-1 text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-muted-foreground group-hover:text-foreground transition-colors truncate">
                     {sectionName}
                   </span>
-                  <span className="text-xs text-muted-foreground">
-                    {filteredKeys.length} settings
+                  <span className="text-[10px] sm:text-xs text-muted-foreground flex-shrink-0">
+                    {filteredKeys.length}
                   </span>
                 </button>
                 
                 {isExpanded && (
-                  <div className="mt-3 space-y-1">
+                  <div className="mt-2 sm:mt-3 space-y-0.5 sm:space-y-1">
                     {filteredKeys.map((key) => {
                       const value = data[key];
                       if (value === undefined) return null;
@@ -311,8 +318,8 @@ export const BBConfigEditor = () => {
                       const isChild = isChildSetting(key, allKeys);
                       
                       return (
-                        <div key={key} className="discord-setting-row">
-                          <span className={`text-sm ${isChild ? 'text-muted-foreground pl-4' : 'text-foreground'}`}>
+                        <div key={key} className="discord-setting-row py-2 sm:py-4 px-2 sm:px-3">
+                          <span className={`text-xs sm:text-sm truncate min-w-0 mr-2 ${isChild ? 'text-muted-foreground pl-2 sm:pl-4' : 'text-foreground'}`}>
                             {formatKeyName(key)}
                           </span>
                           {renderValue(key, value)}
