@@ -2,51 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    --background: 20 10% 12%;
-    --foreground: 40 20% 90%;
+    /* Discord Dark Theme Colors */
+    --background: 223 7% 12%;
+    --foreground: 0 0% 100%;
 
-    --card: 20 12% 15%;
-    --card-foreground: 40 20% 90%;
+    --card: 225 6% 16%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 20 12% 15%;
-    --popover-foreground: 40 20% 90%;
+    --popover: 225 6% 16%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 120 70% 45%;
-    --primary-foreground: 20 10% 10%;
+    --primary: 235 86% 65%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 20 10% 20%;
-    --secondary-foreground: 40 20% 85%;
+    --secondary: 225 6% 19%;
+    --secondary-foreground: 216 4% 74%;
 
-    --muted: 20 10% 22%;
-    --muted-foreground: 30 10% 55%;
+    --muted: 228 6% 21%;
+    --muted-foreground: 216 4% 64%;
 
-    --accent: 120 70% 45%;
-    --accent-foreground: 20 10% 10%;
+    --accent: 235 86% 65%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 70% 50%;
-    --destructive-foreground: 40 20% 95%;
+    --destructive: 359 83% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 20 10% 25%;
-    --input: 20 10% 18%;
-    --ring: 120 70% 45%;
+    --border: 228 6% 24%;
+    --input: 225 6% 16%;
+    --ring: 235 86% 65%;
 
-    --radius: 0px;
+    --radius: 8px;
 
-    /* Minecraft theme tokens */
-    --mc-green: 120 70% 45%;
-    --mc-green-dark: 120 70% 35%;
-    --mc-stone: 30 8% 35%;
-    --mc-stone-dark: 25 10% 20%;
-    --mc-dirt: 25 40% 25%;
-    --mc-gold: 45 90% 50%;
-    --mc-red: 0 70% 50%;
-
-    --font-pixel: 'Press Start 2P', cursive;
-    --font-retro: 'VT323', monospace;
+    /* Discord specific tokens */
+    --discord-blurple: 235 86% 65%;
+    --discord-green: 145 65% 39%;
+    --discord-yellow: 38 96% 54%;
+    --discord-red: 359 83% 60%;
+    --discord-dark: 223 7% 12%;
+    --discord-darker: 225 6% 10%;
+    --discord-light: 225 6% 16%;
+    --discord-lighter: 228 6% 21%;
   }
 }
 
@@ -57,178 +56,90 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: var(--font-retro);
-    image-rendering: pixelated;
-  }
-
-  .font-pixel {
-    font-family: var(--font-pixel);
-  }
-
-  .font-retro {
-    font-family: var(--font-retro);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 }
 
 @layer components {
-  .mc-button {
-    @apply px-6 py-3 text-lg font-bold transition-all duration-100;
-    font-family: var(--font-pixel);
-    background: linear-gradient(180deg, hsl(var(--mc-stone)) 0%, hsl(var(--mc-stone-dark)) 100%);
-    border: 3px solid;
-    border-color: hsl(30 10% 50%) hsl(25 10% 15%) hsl(25 10% 15%) hsl(30 10% 50%);
-    box-shadow: 
-      inset 2px 2px 0 hsl(30 10% 45%),
-      inset -2px -2px 0 hsl(25 10% 18%);
-    text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+  .discord-btn {
+    @apply px-4 py-2 text-sm font-medium rounded-[3px] transition-all duration-200;
+    @apply bg-primary text-primary-foreground hover:bg-primary/80;
   }
 
-  .mc-button:hover {
-    filter: brightness(1.2);
+  .discord-btn-secondary {
+    @apply px-4 py-2 text-sm font-medium rounded-[3px] transition-all duration-200;
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
   }
 
-  .mc-button:active {
-    border-color: hsl(25 10% 15%) hsl(30 10% 50%) hsl(30 10% 50%) hsl(25 10% 15%);
-    box-shadow: 
-      inset -2px -2px 0 hsl(30 10% 45%),
-      inset 2px 2px 0 hsl(25 10% 18%);
+  .discord-btn-outline {
+    @apply px-4 py-2 text-sm font-medium rounded-[3px] transition-all duration-200;
+    @apply bg-transparent border border-border text-foreground hover:bg-muted;
   }
 
-  .mc-button-primary {
-    @apply mc-button text-primary-foreground;
-    background: linear-gradient(180deg, hsl(var(--mc-green)) 0%, hsl(var(--mc-green-dark)) 100%);
-    border-color: hsl(120 60% 60%) hsl(120 70% 25%) hsl(120 70% 25%) hsl(120 60% 60%);
-    box-shadow: 
-      inset 2px 2px 0 hsl(120 60% 55%),
-      inset -2px -2px 0 hsl(120 70% 28%);
-  }
-
-  .mc-card {
-    @apply p-4;
+  .discord-card {
+    @apply p-4 rounded-lg;
     background: hsl(var(--card));
-    border: 3px solid;
-    border-color: hsl(20 10% 30%) hsl(20 10% 10%) hsl(20 10% 10%) hsl(20 10% 30%);
-    box-shadow: 
-      inset 2px 2px 0 hsl(20 10% 28%),
-      inset -2px -2px 0 hsl(20 10% 12%);
   }
 
-  .mc-panel {
-    background: hsl(var(--background) / 0.95);
-    border: 4px solid hsl(var(--border));
-    box-shadow: 
-      0 0 0 2px hsl(20 10% 8%),
-      inset 0 0 0 2px hsl(20 10% 8%);
+  .discord-input {
+    @apply px-3 py-2 text-sm rounded-[3px] w-full;
+    @apply bg-background border-none outline-none;
+    @apply text-foreground placeholder:text-muted-foreground;
+    @apply focus:ring-2 focus:ring-primary/50;
   }
 
-  .mc-input {
-    @apply px-3 py-2 text-lg;
-    font-family: var(--font-retro);
-    background: hsl(20 10% 8%);
-    border: 2px solid;
-    border-color: hsl(20 10% 5%) hsl(20 10% 25%) hsl(20 10% 25%) hsl(20 10% 5%);
+  .discord-toggle {
+    @apply relative w-10 h-6 rounded-full cursor-pointer transition-colors duration-200;
+    background: hsl(var(--muted));
   }
 
-  .mc-input:focus {
-    outline: none;
-    border-color: hsl(var(--mc-green));
+  .discord-toggle.active {
+    background: hsl(var(--discord-green));
   }
 
-  .mc-toggle {
-    @apply relative w-12 h-6 cursor-pointer;
-    background: hsl(var(--mc-red));
-    border: 2px solid;
-    border-color: hsl(0 60% 35%) hsl(0 70% 60%) hsl(0 70% 60%) hsl(0 60% 35%);
-  }
-
-  .mc-toggle.active {
-    background: hsl(var(--mc-green));
-    border-color: hsl(120 60% 30%) hsl(120 60% 55%) hsl(120 60% 55%) hsl(120 60% 30%);
-  }
-
-  .mc-toggle::after {
+  .discord-toggle::after {
     content: '';
-    @apply absolute top-0 left-0 w-5 h-5 transition-all duration-100;
-    background: linear-gradient(180deg, hsl(40 20% 80%) 0%, hsl(40 15% 60%) 100%);
-    border: 2px solid;
-    border-color: hsl(40 20% 90%) hsl(40 15% 40%) hsl(40 15% 40%) hsl(40 20% 90%);
+    @apply absolute top-1 left-1 w-4 h-4 rounded-full transition-all duration-200;
+    background: hsl(var(--foreground));
   }
 
-  .mc-toggle.active::after {
+  .discord-toggle.active::after {
     left: calc(100% - 20px);
   }
 
-  .section-header {
-    @apply text-xs uppercase tracking-wider px-3 py-2 mb-2;
-    font-family: var(--font-pixel);
-    color: hsl(var(--mc-green));
-    background: linear-gradient(90deg, hsl(var(--mc-green) / 0.15) 0%, transparent 100%);
-    border-left: 4px solid hsl(var(--mc-green));
-  }
-
-  .setting-row {
-    @apply flex items-center justify-between py-3 px-4 border-b border-border/50;
-    transition: background 0.1s;
-  }
-
-  .setting-row:hover {
-    background: hsl(var(--muted) / 0.5);
-  }
-
-  .setting-label {
-    @apply text-lg;
-    font-family: var(--font-retro);
-    color: hsl(var(--foreground));
-  }
-
-  .setting-sublabel {
-    @apply text-lg pl-6;
-    font-family: var(--font-retro);
+  .discord-section-header {
+    @apply text-xs font-semibold uppercase tracking-wide mb-2 px-2;
     color: hsl(var(--muted-foreground));
   }
 
-  .upload-zone-mc {
-    @apply p-12 cursor-pointer transition-all duration-200;
-    background: repeating-linear-gradient(
-      45deg,
-      hsl(var(--card)),
-      hsl(var(--card)) 10px,
-      hsl(var(--muted)) 10px,
-      hsl(var(--muted)) 20px
-    );
-    border: 4px dashed hsl(var(--border));
+  .discord-setting-row {
+    @apply flex items-center justify-between py-4 px-3 rounded-md;
+    @apply transition-colors duration-100;
   }
 
-  .upload-zone-mc:hover,
-  .upload-zone-mc.dragging {
-    border-color: hsl(var(--mc-green));
-    background: repeating-linear-gradient(
-      45deg,
-      hsl(var(--card)),
-      hsl(var(--card)) 10px,
-      hsl(var(--mc-green) / 0.1) 10px,
-      hsl(var(--mc-green) / 0.1) 20px
-    );
+  .discord-setting-row:hover {
+    background: hsl(var(--muted) / 0.5);
+  }
+
+  .discord-divider {
+    @apply h-px w-full my-4;
+    background: hsl(var(--border));
   }
 }
 
 @layer utilities {
   .animate-fade-in {
-    animation: fadeIn 0.2s ease-out;
+    animation: fadeIn 0.15s ease-out;
   }
 
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(5px);
+      transform: translateY(-4px);
     }
     to {
       opacity: 1;
       transform: translateY(0);
     }
-  }
-
-  .text-shadow-mc {
-    text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
   }
 }

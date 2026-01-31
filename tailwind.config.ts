@@ -14,10 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['VT323', 'monospace'],
-        mono: ['VT323', 'monospace'],
-        pixel: ['Press Start 2P', 'cursive'],
-        retro: ['VT323', 'monospace'],
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -62,6 +59,12 @@ export default {
           "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
+        },
+        discord: {
+          blurple: "hsl(var(--discord-blurple))",
+          green: "hsl(var(--discord-green))",
+          yellow: "hsl(var(--discord-yellow))",
+          red: "hsl(var(--discord-red))",
         },
       },
       borderRadius: {
